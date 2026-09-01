@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LinguaBridge — AI Language Translation</title>
+    <link rel="stylesheet" href="/css/style.css?v=7">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header -->
+        <header class="header">
+            <div class="logo">
+                <span class="logo-icon">🌐</span>
+                <h1>LinguaBridge</h1>
+            </div>
+            <p class="tagline">AI-Powered Language Translation</p>
+        </header>
+
+        <!-- Language Selectors -->
+        <div class="language-bar">
+            <div class="lang-select-group">
+                <label>Source Language</label>
+                <div class="searchable-select" id="source-lang-select">
+                    <input type="text" class="select-search-input" placeholder="Auto Detect" autocomplete="off" />
+                    <div class="select-options">
+                        <div class="select-option selected" data-value="auto">Auto Detect</div>
+                    </div>
+                </div>
+            </div>
+
+            <button id="swap-langs" class="swap-btn" title="Swap languages">⇄</button>
+
+            <div class="lang-select-group">
+                <label>Target Language</label>
+                <div class="searchable-select" id="target-lang-select">
+                    <input type="text" class="select-search-input" placeholder="Search language..." autocomplete="off" />
+                    <div class="select-options"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Translation Panels -->
+        <div class="translation-panels">
+            <!-- Input Panel -->
+            <div class="panel input-panel">
+                <div class="panel-header">
+                    <span class="panel-label">Input</span>
+                    <span class="char-count" id="char-count">0 / 5000</span>
+                </div>
+                <textarea
+                    id="input-text"
+                    placeholder="Enter text to translate..."
+                    maxlength="5000"
+                    rows="12"
+                    spellcheck="false"
+                ></textarea>
+                <div class="panel-actions">
+                    <button id="clear-btn" class="action-btn" title="Clear text">✕ Clear</button>
+                    <button id="paste-btn" class="action-btn" title="Paste from clipboard">📋 Paste</button>
+                </div>
+            </div>
+
+            <!-- Output Panel -->
+            <div class="panel output-panel">
+                <div class="panel-header">
+                    <span class="panel-label">Translation</span>
+                    <span class="status-text" id="status-text"></span>
+                </div>
+                <div id="output-text" class="output-area" rows="12">
+                    <span class="placeholder-text">Translation will appear here...</span>
+                </div>
+                <div class="panel-actions">
+                    <button id="copy-btn" class="action-btn" title="Copy translation" disabled>📋 Copy</button>
+                    <button id="speak-btn" class="action-btn" title="Listen to translation" disabled>🔊 Listen</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Translate Button -->
+        <div class="translate-action">
+            <button id="translate-btn" class="primary-btn">
+                <span class="btn-text">Translate</span>
+                <span class="btn-loader" id="btn-loader"></span>
+            </button>
+        </div>
+
+        <!-- History Section -->
+        <div class="history-section">
+            <div class="history-header">
+                <h2>Translation History</h2>
+                <button id="clear-history-btn" class="action-btn" title="Clear all history">🗑 Clear All</button>
+            </div>
+            <div id="history-list" class="history-list">
+                <p class="empty-history">No translations yet.</p>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p>LinguaBridge &copy; 2026 — Powered by Google Gemini AI</p>
+        </footer>
+    </div>
+
+    <script src="/js/app.js?v=8"></script>
+</body>
+</html>
