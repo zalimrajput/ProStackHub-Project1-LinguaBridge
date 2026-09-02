@@ -2,6 +2,8 @@
 
 An AI-powered language translation web application supporting **83 languages** with dual-engine text-to-speech, translation history, and caching.
 
+**🚀 Live Demo:** [https://prostackhub-project1-linguabridge-production.up.railway.app](https://prostackhub-project1-linguabridge-production.up.railway.app)
+
 ---
 
 ## Table of Contents
@@ -107,7 +109,7 @@ This project can also be deployed on Railway.
 4. **Deploy**
    - Railway will automatically build and deploy
    - Once deployed, go to **Settings** → **Networking** → **Generate Domain** to get your public URL
-   - Your app will be live at `https://your-app-name.up.railway.app`
+   - Your app will be live at `https://prostackhub-project1-linguabridge-production.up.railway.app`
 
 ### Railway Configuration (railway.json)
 
@@ -118,7 +120,6 @@ This project can also be deployed on Railway.
     "builder": "DOCKERFILE"
   },
   "deploy": {
-    "startCommand": "cd backend && python main.py",
     "healthcheckPath": "/api/health",
     "healthcheckTimeout": 10,
     "restartPolicyType": "ON_FAILURE",
