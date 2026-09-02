@@ -2,8 +2,6 @@
 
 An AI-powered language translation web application supporting **83 languages** with dual-engine text-to-speech, translation history, and caching.
 
-**🚀 Live Demo:** [https://linguabridge.onrender.com](https://linguabridge.onrender.com)
-
 ---
 
 ## Table of Contents
@@ -11,7 +9,6 @@ An AI-powered language translation web application supporting **83 languages** w
 - [Features](#features)
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
-- [Deployment on Render](#deployment-on-render)
 - [Deployment on Railway](#deployment-on-railway)
 - [Setup & Installation](#setup--installation)
 - [API Keys](#api-keys)
@@ -48,7 +45,7 @@ An AI-powered language translation web application supporting **83 languages** w
 | Layer | Technology | Purpose |
 |---|---|---|
 | **Backend** | Python 3.11+ | Server-side logic |
-| **Hosting** | Render | Cloud deployment platform |
+
 | **API Framework** | FastAPI | REST API endpoints |
 | **Translation AI** | Google Gemini 3.6 Flash | AI-powered translation |
 | **TTS Engine 1** | CAMB.AI (mars-81 model) | High-quality AI voices (32 languages) |
@@ -76,63 +73,9 @@ LinguaBridge/
 │   │   └── style.css        # All styles (dark theme, responsive)
 │   └── js/
 │       └── app.js           # Frontend logic (translation, TTS, history, caching)
-├── render.yaml              # Render deployment config
 ├── railway.json             # Railway deployment config
 ├── venv/                    # Python virtual environment
 └── README.md                # This file
-```
-
----
-
-## Deployment on Render
-
-This project is deployed on Render. You can access the live version here:
-
-**🔗 [https://linguabridge.onrender.com](https://linguabridge.onrender.com)**
-
-### How to Deploy Your Own Instance
-
-1. **Fork/Clone the repository**
-   ```bash
-   git clone https://github.com/zalimrajput/ProStackHub-Project1-LinguaBridge.git
-   cd ProStackHub-Project1-LinguaBridge
-   ```
-
-2. **Create a Render account** at [render.com](https://render.com)
-
-3. **Create a new Web Service**
-   - Click **New +** → **Web Service**
-   - Connect your GitHub repository
-   - Render will auto-detect the `render.yaml` configuration
-
-4. **Configure Environment Variables**
-   In Render's dashboard, go to the **Environment** tab and add:
-
-   | Key | Value |
-   |---|---|
-   | `GEMINI_API_KEY` | Your Google Gemini API key |
-   | `CAMB_API_KEY` | Your CAMB.AI API key |
-
-5. **Deploy**
-   - Click **Create Web Service**
-   - Render will install dependencies and start the server
-   - Your app will be live at `https://your-app-name.onrender.com`
-
-### Render Configuration (render.yaml)
-
-```yaml
-services:
-  - type: web
-    name: linguabridge
-    runtime: python
-    rootDir: backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: python main.py
-    envVars:
-      - key: GEMINI_API_KEY
-        sync: false
-      - key: CAMB_API_KEY
-        sync: false
 ```
 
 ---
@@ -627,22 +570,6 @@ TTS (Browser-only languages):
 ---
 
 ## Troubleshooting
-
-### Render Deployment Issues
-
-**Build fails on Render:**
-- Check that `render.yaml` is in the project root
-- Ensure `backend/requirements.txt` is valid
-- Check Render build logs for missing dependencies
-
-**App starts but crashes:**
-- Verify `GEMINI_API_KEY` and `CAMB_API_KEY` are set in Render environment variables
-- Check Render logs for API key errors
-- Ensure the start command `python main.py` is correct
-
-**Static files not loading:**
-- Verify the frontend directory structure matches the expected layout
-- Check that `/css` and `/js` paths are correct in the HTML
 
 ### Server won't start
 
