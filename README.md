@@ -10,6 +10,7 @@ An AI-powered language translation web application supporting **83 languages** w
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Deployment on Railway](#deployment-on-railway)
+- [Docker Setup](#docker-setup)
 - [Setup & Installation](#setup--installation)
 - [API Keys](#api-keys)
 - [Running the Application](#running-the-application)
@@ -124,6 +125,61 @@ This project can also be deployed on Railway.
     "restartPolicyMaxRetries": 10
   }
 }
+```
+
+---
+
+## Docker Setup
+
+You can also run the project using Docker.
+
+### Prerequisites
+
+- [Docker](https://docs.docker.com/get-docker/) installed on your machine
+
+### Build and Run
+
+```bash
+# Build the Docker image
+docker build -t linguabridge .
+
+# Run the container with your API keys
+docker run -p 8000:8000 \
+  -e GEMINI_API_KEY=your_gemini_api_key_here \
+  -e CAMB_API_KEY=your_camb_api_key_here \
+  linguabridge
+```
+
+Then open **http://localhost:8000** in your browser.
+
+### Run in Background
+
+```bash
+docker run -d \
+  -p 8000:8000 \
+  --name linguabridge \
+  -e GEMINI_API_KEY=your_gemini_api_key_here \
+  -e CAMB_API_KEY=your_camb_api_key_here \
+  linguabridge
+```
+
+### Useful Docker Commands
+
+```bash
+# Stop the container
+docker stop linguabridge
+
+# Start it again
+docker start linguabridge
+
+# View logs
+docker logs linguabridge
+
+# Remove the container
+docker rm linguabridge
+
+# Remove the image
+docker rmi linguabridge
 ```
 
 ---
