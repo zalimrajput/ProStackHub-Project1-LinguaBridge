@@ -16,5 +16,5 @@ WORKDIR /app/backend
 # Expose the port
 EXPOSE 8000
 
-# Run the app
-CMD ["python", "main.py"]
+# Run the app with uvicorn
+CMD uvicorn main:app --host 0.0.0.0 --port ${PORT:-8000}

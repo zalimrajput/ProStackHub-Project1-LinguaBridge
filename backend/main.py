@@ -7,7 +7,10 @@ from fastapi.responses import FileResponse, StreamingResponse
 from pydantic import BaseModel
 from dotenv import load_dotenv
 import google.generativeai as genai
-from camb.client import AsyncCambAI
+try:
+    from camb.client import AsyncCambAI
+except ImportError:
+    AsyncCambAI = None
 
 load_dotenv()
 
@@ -198,7 +201,7 @@ def get_supported_languages():
 
 # ===== Text-to-Speech =====
 CAMB_API_KEY = os.getenv("CAMB_API_KEY", "")
-camb_client = AsyncCambAI(api_key=CAMB_API_KEY) if CAMB_API_KEY else None
+camb_client = AsyncCambAI(api_key=CAMB_API_KEY) if CAMB_API_KEY and AsyncCambAI else None
 
 # Languages that CAMB.AI actually supports (verified from API voice listing)
 # These have dedicated voice IDs — all others must use browser Web Speech API
