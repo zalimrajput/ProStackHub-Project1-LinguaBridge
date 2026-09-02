@@ -52,8 +52,8 @@ class TranslationResponse(BaseModel):
 
 @app.get("/")
 def root():
-    frontend_path = os.path.join(os.path.dirname(__file__), "..", "frontend", "index.html")
-    return FileResponse(frontend_path)
+    index_path = os.path.join(frontend_dir, "index.html")
+    return FileResponse(index_path)
 
 
 @app.get("/api/health")
@@ -360,7 +360,20 @@ async def list_tts_voices():
 
 
 # Serve frontend static files (CSS, JS)
-frontend_dir = os.path.join(os.path.dirname(__file__), "..", "frontend")
+# Resolve frontend_dir to work both locally and in Docker containers
+_script_dir = os.path.dirname(os.path.abspath(__file__))
+_candidate = os.path.join(_script_dir, "..", "frontend")
+if os.path.isdir(_candidate):
+    frontend_dir = _candidate
+else:
+    # Fallback: look in /app/frontend (Docker) or current dir
+    for _try in ["/app/frontend", os.path.join(_script_dir, "frontend")]:
+        if os.path.isdir(_try):
+            frontend_dir = _try
+            break
+    else:
+        frontend_dir = _candidate
+
 app.mount("/css", StaticFiles(directory=os.path.join(frontend_dir, "css")), name="css")
 app.mount("/js", StaticFiles(directory=os.path.join(frontend_dir, "js")), name="js")
 
