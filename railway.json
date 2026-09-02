@@ -4,7 +4,6 @@
     "builder": "DOCKERFILE"
   },
   "deploy": {
-    "startCommand": "cd backend && python main.py",
     "healthcheckPath": "/api/health",
     "healthcheckTimeout": 10,
     "restartPolicyType": "ON_FAILURE",
