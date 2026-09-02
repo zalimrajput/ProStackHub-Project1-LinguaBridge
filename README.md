@@ -66,6 +66,7 @@ LinguaBridge/
 │   ├── main.py              # FastAPI server with all API endpoints
 │   ├── requirements.txt     # Python dependencies
 │   ├── .env                 # API keys (GEMINI_API_KEY, CAMB_API_KEY)
+│   ├── .env.example         # Template for environment variables
 │   └── voices.json          # TTS voice configuration
 ├── frontend/
 │   ├── index.html           # Main HTML page
@@ -73,6 +74,8 @@ LinguaBridge/
 │   │   └── style.css        # All styles (dark theme, responsive)
 │   └── js/
 │       └── app.js           # Frontend logic (translation, TTS, history, caching)
+├── Dockerfile               # Docker config for deployment
+├── nixpacks.toml            # Nixpacks config for Railway
 ├── railway.json             # Railway deployment config
 ├── venv/                    # Python virtual environment
 └── README.md                # This file
@@ -111,11 +114,12 @@ This project can also be deployed on Railway.
 {
   "$schema": "https://railway.app/railway.schema.json",
   "build": {
-    "builder": "NIXPACKS",
-    "buildCommand": "cd backend && pip install -r requirements.txt"
+    "builder": "DOCKERFILE"
   },
   "deploy": {
     "startCommand": "cd backend && python main.py",
+    "healthcheckPath": "/api/health",
+    "healthcheckTimeout": 10,
     "restartPolicyType": "ON_FAILURE",
     "restartPolicyMaxRetries": 10
   }
