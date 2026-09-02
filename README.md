@@ -12,6 +12,7 @@ An AI-powered language translation web application supporting **83 languages** w
 - [Tech Stack](#tech-stack)
 - [Project Structure](#project-structure)
 - [Deployment on Render](#deployment-on-render)
+- [Deployment on Railway](#deployment-on-railway)
 - [Setup & Installation](#setup--installation)
 - [API Keys](#api-keys)
 - [Running the Application](#running-the-application)
@@ -76,6 +77,7 @@ LinguaBridge/
 │   └── js/
 │       └── app.js           # Frontend logic (translation, TTS, history, caching)
 ├── render.yaml              # Render deployment config
+├── railway.json             # Railway deployment config
 ├── venv/                    # Python virtual environment
 └── README.md                # This file
 ```
@@ -131,6 +133,50 @@ services:
         sync: false
       - key: CAMB_API_KEY
         sync: false
+```
+
+---
+
+## Deployment on Railway
+
+This project can also be deployed on Railway.
+### How to Deploy on Railway
+
+1. **Create a Railway account** at [railway.app](https://railway.app)
+
+2. **Create a new project**
+   - Click **New Project** → **Deploy from GitHub repo**
+   - Select your GitHub repository `zalimrajput/ProStackHub-Project1-LinguaBridge`
+   - Railway will auto-detect the `railway.json` configuration
+
+3. **Configure Environment Variables**
+   In Railway's dashboard, go to the **Variables** tab and add:
+
+   | Key | Value |
+   |---|---|
+   | `GEMINI_API_KEY` | Your Google Gemini API key |
+   | `CAMB_API_KEY` | Your CAMB.AI API key |
+
+4. **Deploy**
+   - Railway will automatically build and deploy
+   - Once deployed, go to **Settings** → **Networking** → **Generate Domain** to get your public URL
+   - Your app will be live at `https://your-app-name.up.railway.app`
+
+### Railway Configuration (railway.json)
+
+```json
+{
+  "$schema": "https://railway.app/railway.schema.json",
+  "build": {
+    "builder": "NIXPACKS",
+    "buildCommand": "cd backend && pip install -r requirements.txt"
+  },
+  "deploy": {
+    "startCommand": "cd backend && python main.py",
+    "restartPolicyType": "ON_FAILURE",
+    "restartPolicyMaxRetries": 10
+  }
+}
 ```
 
 ---
