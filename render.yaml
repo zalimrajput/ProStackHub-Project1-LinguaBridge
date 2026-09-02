@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: linguabridge
+    runtime: python
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python main.py
+    envVars:
+      - key: GEMINI_API_KEY
+        sync: false
+      - key: CAMB_API_KEY
+        sync: false
