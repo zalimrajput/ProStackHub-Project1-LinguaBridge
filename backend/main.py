@@ -360,20 +360,22 @@ async def list_tts_voices():
 
 
 # Serve frontend static files (CSS, JS)
-# Resolve frontend_dir to work both locally and in Docker containers
-_script_dir = os.path.dirname(os.path.abspath(__file__))
-_candidate = os.path.join(_script_dir, "..", "frontend")
-if os.path.isdir(_candidate):
-    frontend_dir = _candidate
-else:
-    # Fallback: look in /app/frontend (Docker) or current dir
-    for _try in ["/app/frontend", os.path.join(_script_dir, "frontend")]:
-        if os.path.isdir(_try):
-            frontend_dir = _try
-            break
-    else:
-        frontend_dir = _candidate
+# Resolve frontend_dir — works locally, in Docker, and on Railway/Nixpacks
+def _resolve_frontend_dir():
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    candidates = [
+        os.path.join(script_dir, "..", "frontend"),  # local: backend/../frontend
+        os.path.join(script_dir, "frontend"),          # same dir as main.py
+        "/app/frontend",                                # Docker / Railway
+        os.path.join(script_dir, "..", "..", "frontend"),  # deep nesting
+    ]
+    for path in candidates:
+        if os.path.isdir(os.path.join(path, "css")) and os.path.isdir(os.path.join(path, "js")):
+            return path
+    # Last resort: create the path anyway (will fail with clear error)
+    return candidates[0]
 
+frontend_dir = _resolve_frontend_dir()
 app.mount("/css", StaticFiles(directory=os.path.join(frontend_dir, "css")), name="css")
 app.mount("/js", StaticFiles(directory=os.path.join(frontend_dir, "js")), name="js")
 
